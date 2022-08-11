@@ -1,0 +1,54 @@
+.torchWrapper{
+    height: 100vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+    background-image: url(headerMoviePosters.jpg);
+    color: #ffffff;
+}
+.torch{
+    content: "";
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+}
+.container{
+    height: 100%;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+}
+.torchTextContant{
+    padding-left: 5%;
+}
+.torchTextContant h1{
+    font-size: 80px;
+}
+.torchTextContant h2{
+    font-size: 15px;
+    word-spacing: 3px;
+    text-align: center;
+}
+@media (max-width: 960px) {
+    .torchTextContant h1{
+        font-size: 60px;
+    }
+}
+@media (max-width: 660px) {
+    .torchTextContant h1{
+        font-size: 50px;
+        text-align: center;
+    }
+    .torchWrapper .container{
+        justify-content: center;
+    }
+    .torchWrapper .container *{
+        padding: 0;
+    }
+}
