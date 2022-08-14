@@ -17,11 +17,27 @@
 }
 .poster-box{
     width: 100%;
+    position: relative;
+}
+.film-rating{
+    position: absolute;
+    background: #141414;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    top: 10px;
+    box-sizing: border-box;
+    padding-top: 6px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid rgba(241, 159, 7, 1);
+    color: #fff;
+    font-weight: bold;
+    left: 10px;
 }
 .film img{
     border-radius: 10px 10px 0px 0px;
     width: 100%;
-    
 }
 @media (max-width: 550px) {
     .filmsListWrapper .container{

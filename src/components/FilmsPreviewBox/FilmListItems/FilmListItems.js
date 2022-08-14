@@ -16,9 +16,10 @@ function FilmListItems(params) {
 function ItemFilm(params) {
     let item = params.item
     return (
-        <div className="film" key={item.filmId}>
+        <div className="film">
             <div className="poster-box">
                 <img src={item.posterUrlPreview} />
+                <div className="film-rating">{item.rating}</div>
             </div>
             <div className="text-contant">
                 <h3>{item.nameRu}</h3>
