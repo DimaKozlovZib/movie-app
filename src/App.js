@@ -1,7 +1,7 @@
 import './App.css';
+import FilmsPreviewBox from './components/FilmsPreviewBox/FilmsPreviewBox';
 import Header from './components/Header/header';
 import Torch from './components/Torch/Torch';
-
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
           <h2>Easy movie search</h2>
         </div>
       } />
+      <FilmsPreviewBox />
     </div>
   );
 }
