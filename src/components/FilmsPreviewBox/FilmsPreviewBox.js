@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import getPosts from "../Api/getData";
 import FilmListItems from "./FilmListItems/FilmListItems";
 import "./filmsList.css";
+import PageChange from "./PageChange/PageChange";
 
 function FilmsPreviewBox() {
     const [pageNumber, setpageNumber] = useState(1);
@@ -11,20 +12,20 @@ function FilmsPreviewBox() {
     const ifFetchError = `Ой что-то пошло не так! Проверьте соединение с интернетом.`
 
     useEffect(() => {
-        getData()
-    }, []);
+        getData(pageNumber)
+    }, [pageNumber]);
 
-    async function getData() {
+    async function getData(PageNumber) {
         try {
-            const fetchResult = await getPosts();
+            const fetchResult = await getPosts(PageNumber);
             setgoodFetchResult(true);
             setfilms(fetchResult.films);
-            setpageCount(fetchResult.pageCount);
+            setpageCount(fetchResult.pagesCount);
         } catch (error) {
             setgoodFetchResult(false);
         }
     }
-
+    console.log(pageCount)
     return (
         <div className="filmsListWrapper">
             <h2 className="main-filmList-title">фильмы</h2>
@@ -32,6 +33,7 @@ function FilmsPreviewBox() {
                 goodFetchResult ? <FilmListItems films={films} /> :
                     <div className="FetchError">{ifFetchError}</div>
             }
+            <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} />
         </div>
     )
 }
