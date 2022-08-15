@@ -9,6 +9,6 @@ export default async function getPosts(PageNumber) {
         .then(res => res.json())
         .then(json => { return json })
         .catch(err => console.log(err))
-
+    console.log(result)
     return result;
 }
