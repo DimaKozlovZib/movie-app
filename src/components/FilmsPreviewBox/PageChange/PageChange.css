@@ -36,26 +36,35 @@
     transform: rotate(180deg);
 }
 .active-page{
-    height: 25px;
-    width: 25px;
+    height: 27px;
+    width: 27px;
     background-color: #fff;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 17px;
 }
 .PageNumberButton{
     color: #fff;
     font-size: 16px;
+    border-radius: 50%;
+    height: 25px;
+    transition: all 0.5s linear;
+    width: 25px;
 }
+.PageNumberButton:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+
 .page-change-wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
     margin-top: 30px;
 }
 
 .page-num-buttons{
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
 }

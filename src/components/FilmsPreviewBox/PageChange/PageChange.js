@@ -33,19 +33,20 @@ function PageChange(props) {
         )
     }
 
-    function PageNumberButton(props) {
+    function PageNumberButton(propsOnclickFunc) {
 
         function changePage() {
-            setPagefunc(props.buttonNum)
+            props.toScrollElement.current.scrollIntoView({ block: "center" });
+            setPagefunc(propsOnclickFunc.buttonNum)
         }
 
         return (
-            <button className="PageNumberButton" onClick={changePage}>{props.buttonNum}</button>
+            <button className="PageNumberButton" onClick={changePage}>{propsOnclickFunc.buttonNum}</button>
         )
     }
 
     return (
-        <div className={"page-change-wrapper" + (pagesCount > 1 ? "" : "noVisible")}>
+        <div className={"page-change-wrapper " + (pagesCount > 1 ? "" : "noVisible")}>
             <button className="last-page change-page-arrowButton"><div className="arrowBox"><span></span></div></button>
             {createPageChangeButtons()}
             <button className="next-page change-page-arrowButton"><div className="arrowBox"><span></span></div></button>
