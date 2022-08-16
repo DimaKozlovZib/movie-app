@@ -60,7 +60,10 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 60px;
+}
+.page-change-wrapper.noVisible{
+    display: none;
 }
 
 .page-num-buttons{
