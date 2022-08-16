@@ -1,0 +1,74 @@
+.change-page-arrowButton{
+    background-color: rgba(241, 159, 7, 1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    align-items: center;
+}
+.arrowBox{
+    width: 12px;
+    height: 12px;
+    position: relative;
+}
+
+.arrowBox span{
+    bottom: 0;
+    transform: rotate(-45deg);
+}
+.arrowBox::after{
+    transform: rotate(45deg);
+    top: 0;
+}
+.arrowBox::after, .arrowBox span{
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    background-color: #fff;
+    content: "";
+    height: 2px;
+    width: 15px;
+    border-radius: 1px;
+}
+.last-page{
+    transform: rotate(180deg);
+}
+.active-page{
+    height: 27px;
+    width: 27px;
+    background-color: #fff;
+    border-radius: 50%;
+    font-size: 17px;
+}
+.PageNumberButton{
+    
+    color: #fff;
+    font-size: 16px;
+    border-radius: 50%;
+    height: 25px;
+    transition: all 0.5s linear;
+    width: 25px;
+}
+.PageNumberButton:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+.page-change-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 60px;
+}
+.page-change-wrapper.noVisible{
+    display: none;
+}
+
+.page-num-buttons{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
