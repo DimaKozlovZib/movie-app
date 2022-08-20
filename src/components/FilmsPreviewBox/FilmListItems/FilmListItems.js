@@ -1,4 +1,5 @@
 import React from "react";
+import ImageLoad from "../ImageLoad/ImageLoad";
 
 function FilmListItems(params) {
     params = params.films;
@@ -18,7 +19,7 @@ function ItemFilm(params) {
     return (
         <div className="film">
             <div className="poster-box">
-                <img src={item.posterUrlPreview} />
+                <ImageLoad url={item.posterUrlPreview} />
                 <div className="film-rating">{item.rating}</div>
             </div>
             <div className="text-contant">

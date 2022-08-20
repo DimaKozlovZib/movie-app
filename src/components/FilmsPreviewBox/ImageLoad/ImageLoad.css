@@ -1,0 +1,15 @@
+.Load-Now{
+    animation: load linear 4s infinite;
+}
+
+@keyframes load {
+    0%{
+        background: grey;
+    }
+    50%{
+        background: #1f1f1f;
+    }
+    100%{
+        background: grey;
+    }
+}

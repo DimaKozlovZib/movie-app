@@ -14,6 +14,11 @@
 .film{
     max-width: 240px;
     cursor: pointer;
+    flex-grow: 1;
+    width: 100%;
+}
+.film *{
+    border-color: transparent;
 }
 .poster-box{
     width: 100%;
@@ -38,21 +43,28 @@
 .film img{
     border-radius: 10px 10px 0px 0px;
     width: 100%;
+    aspect-ratio: 0.665;
+}
+
+@media (max-width: 815px) {
+    .film{
+        max-width: 180px;
+    }
 }
 @media (max-width: 550px) {
-    .filmsListWrapper .container{
-        display: block;
-    }
     .filmsListWrapper{
         padding-top: 30px;
     }
-    .film{
-        max-width: 85%;
-        margin: auto;
-        margin-top: 25px;
+    .filmsListWrapper .container{
+        gap: 10px;
     }
-    .film img{
-        height: auto;
+    .film{
+        max-width: 160px;
+    }
+}
+@media (max-width: 455px) {
+    .film{
+        max-width: 130px;
     }
 }
 .film h3{
