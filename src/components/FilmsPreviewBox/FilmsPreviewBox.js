@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import getPosts from "../Api/getData";
+import Error from "../Error/Error";
+import Loader from "../Loader/Loader";
 import FilmListItems from "./FilmListItems/FilmListItems";
 import "./filmsList.css";
 import PageChange from "./PageChange/PageChange";
@@ -8,8 +10,7 @@ function FilmsPreviewBox() {
     const [pageNumber, setpageNumber] = useState(1);
     const [films, setfilms] = useState([]);
     const [pageCount, setpageCount] = useState(0);
-    const [goodFetchResult, setgoodFetchResult] = useState();
-    const ifFetchError = `Ой что-то пошло не так! Проверьте соединение с интернетом.`
+    const [goodFetchResult, setgoodFetchResult] = useState(true);
     const filmsTitle = React.createRef();
 
     useEffect(() => {
@@ -29,12 +30,16 @@ function FilmsPreviewBox() {
 
     return (
         <div className="filmsListWrapper">
-            <h2 className="main-filmList-title" ref={filmsTitle}>фильмы</h2>
+            <h2 className="main-filmList-title" ref={filmsTitle}>Фильмы</h2>
+            <Loader loadActive={films.length !== 0} />
             {
                 goodFetchResult ? <FilmListItems films={films} /> :
-                    <div className="FetchError">{ifFetchError}</div>
+                    <Error tryAgainFunc={() => { getData(pageNumber) }} />
             }
-            <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} toScrollElement={filmsTitle} />
+            {
+                goodFetchResult ? <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} toScrollElement={filmsTitle} />
+                    : ''
+            }
         </div>
     )
 }

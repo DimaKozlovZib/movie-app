@@ -1,0 +1,51 @@
+.Loader{
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid #fff;
+    animation: Loader 1s linear infinite;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin: auto;
+    display: none;
+}
+
+.active{
+    display: block;
+}
+
+@keyframes Loader{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes Loader{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes Loader{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@-ms-keyframes Loader{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.loader-wrapper{
+    
+}
