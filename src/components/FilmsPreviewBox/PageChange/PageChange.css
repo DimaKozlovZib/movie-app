@@ -11,6 +11,9 @@
 .change-page-arrowButton:hover{
     background-color: rgba(241, 159, 7, 0.7);
 }
+.change-page-arrowButton:disabled{
+    background-color: rgba(241, 159, 7, 0.7);
+}
 .arrowBox{
     width: 12px;
     height: 12px;
