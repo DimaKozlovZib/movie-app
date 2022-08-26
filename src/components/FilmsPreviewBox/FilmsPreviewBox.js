@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import getPosts from "../Api/getData";
 import Error from "../Error/Error";
 import Loader from "../Loader/Loader";
-import FilmListItems from "./FilmListItems/FilmListItems";
+import FilmListItems from "../FilmListItems/FilmListItems";
 import "./filmsList.css";
 import PageChange from "./PageChange/PageChange";
+import AboutFilm from "../AboutFilm/AboutFilm";
 
 function FilmsPreviewBox() {
     const [pageNumber, setpageNumber] = useState(1);
@@ -12,6 +13,7 @@ function FilmsPreviewBox() {
     const [pageCount, setpageCount] = useState(0);
     const [goodFetchResult, setgoodFetchResult] = useState(true);
     const filmsTitle = React.createRef();
+    const [filmIdToOpen, setfilmIdToOpen] = useState(null);
 
     useEffect(() => {
         getData(pageNumber)
@@ -30,10 +32,11 @@ function FilmsPreviewBox() {
 
     return (
         <div className="filmsListWrapper">
+            <AboutFilm filmId={filmIdToOpen} />
             <h2 className="main-filmList-title" ref={filmsTitle}>Фильмы</h2>
             <Loader loadActive={films.length !== 0} />
             {
-                goodFetchResult ? <FilmListItems films={films} /> :
+                goodFetchResult ? <FilmListItems films={films} setfilmIdToOpen={setfilmIdToOpen} /> :
                     <Error tryAgainFunc={() => { getData(pageNumber) }} />
             }
             {

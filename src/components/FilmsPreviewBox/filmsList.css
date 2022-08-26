@@ -3,7 +3,7 @@
     width: 100%;
     padding: 50px 0px;
 }
-.filmsListWrapper .container{
+.film-container{
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -55,7 +55,7 @@
     .filmsListWrapper{
         padding-top: 30px;
     }
-    .filmsListWrapper .container{
+    .film-container{
         gap: 10px;
     }
     .film{

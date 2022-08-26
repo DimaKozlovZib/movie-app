@@ -2,12 +2,12 @@ import React from "react";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
 function FilmListItems(params) {
-    params = params.films;
+    const filmsArray = params.films;
     return (
-        <div className="container">
+        <div className="container film-container">
             {
-                params.map(item => {
-                    return (<ItemFilm item={item} key={item.filmId} />)
+                filmsArray.map(item => {
+                    return (<ItemFilm item={item} key={item.filmId} setfilmIdToOpen={params.setfilmIdToOpen} />)
                 })
             }
         </div>
@@ -15,9 +15,9 @@ function FilmListItems(params) {
 }
 
 function ItemFilm(params) {
-    let item = params.item
+    let item = params.item;
     return (
-        <div className="film">
+        <div className="film" onClick={() => { params.setfilmIdToOpen(item.filmId) }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />
                 <div className="film-rating">{item.rating}</div>
