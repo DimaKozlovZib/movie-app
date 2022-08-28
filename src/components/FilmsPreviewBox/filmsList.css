@@ -43,7 +43,7 @@
 .film img{
     border-radius: 10px 10px 0px 0px;
     width: 100%;
-    aspect-ratio: 0.665;
+    aspect-ratio: 240/360;
 }
 
 @media (max-width: 815px) {

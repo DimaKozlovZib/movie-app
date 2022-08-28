@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
 function FilmListItems(params) {
@@ -7,17 +7,23 @@ function FilmListItems(params) {
         <div className="container film-container">
             {
                 filmsArray.map(item => {
-                    return (<ItemFilm item={item} key={item.filmId} setfilmIdToOpen={params.setfilmIdToOpen} />)
+                    return (<ItemFilm item={item}
+                        key={item.filmId}
+                        setfilmIdToOpen={params.setfilmIdToOpen}
+                        setaboutIsOpen={params.setaboutIsOpen} />)
                 })
             }
         </div>
     )
 }
 
-function ItemFilm(params) {
+const ItemFilm = memo((params) => {
     let item = params.item;
     return (
-        <div className="film" onClick={() => { params.setfilmIdToOpen(item.filmId) }}>
+        <div className="film" onClick={() => {
+            params.setfilmIdToOpen(item.filmId);
+            params.setaboutIsOpen(true)
+        }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />
                 <div className="film-rating">{item.rating}</div>
@@ -30,7 +36,7 @@ function ItemFilm(params) {
             </div>
         </div>
     )
-}
+})
 
 
 

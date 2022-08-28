@@ -1,19 +1,18 @@
 import React, { useState, useEffect, memo } from "react";
 import getDataAboutFilm from "../Api/getDataAboutFilm";
 import ImageLoad from "../ImageLoad/ImageLoad";
-import "./AboutFilm.css"
+import "./AboutFilm.css";
 
-const AboutFilm = memo(({ filmId }) => {
+const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
     const [DataAboutFilm, setDataAboutFilm] = useState();
 
     useEffect(() => {
         if (filmId !== null) {
             getData(filmId);
             document.querySelector("body").style.overflow = "hidden";
+            setwindowIsOpen(true);
         }
-        return () => {
-        };
-    }, [filmId]);
+    });
 
     const getData = async (filmId) => {
         const result = await getDataAboutFilm(filmId);
@@ -22,8 +21,14 @@ const AboutFilm = memo(({ filmId }) => {
 
     return (
         DataAboutFilm ?
-            (<div className={`windowAboutFilm ${filmId !== null ? "active" : ""}`}>
+            (<div className={`windowAboutFilm`}>
                 <div className="container">
+                    <div className="go-out-button-box">
+                        <button className="go-out-button" onClick={() => {
+                            setwindowIsOpen(false);
+                            document.querySelector("body").style.overflow = "auto";
+                        }}>{"< Назад"}</button>
+                    </div>
                     <div className="content-wrapper">
                         <div className="windowAboutFilm__poster-box">
                             <ImageLoad url={DataAboutFilm.posterUrlPreview} />
@@ -80,7 +85,7 @@ const AboutFilm = memo(({ filmId }) => {
                             </div>
 
                             <div className="link-button-box">
-                                <a href={DataAboutFilm.webUrl} target="_blank" className="button">Смотреть</a>
+                                <a href={DataAboutFilm.webUrl} target="_blank" rel="noreferrer" className="button">Смотреть</a>
                                 <button className="button">Буду смотреть</button>
                             </div>
                         </div>
