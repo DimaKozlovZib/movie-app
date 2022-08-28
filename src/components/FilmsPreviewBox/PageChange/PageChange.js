@@ -40,15 +40,16 @@ function PageChange(props) {
 
     return (
         <div className={"page-change-wrapper " + (pagesCount > 1 ? "" : "noVisible")}>
-
             <button className="last-page change-page-arrowButton"
                 onClick={() => { changePage(pageNum - 1) }}
+                disabled={pageNum === 1}
             ><div className="arrowBox"><span></span></div></button>
 
             {createPageChangeButtons()}
 
             <button className="next-page change-page-arrowButton"
                 onClick={() => { changePage(pageNum + 1) }}
+                disabled={pageNum === pagesCount}
             ><div className="arrowBox"><span></span></div></button>
 
         </div>

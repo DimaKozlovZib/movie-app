@@ -3,7 +3,7 @@
     width: 100%;
     padding: 50px 0px;
 }
-.filmsListWrapper .container{
+.film-container{
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -43,7 +43,7 @@
 .film img{
     border-radius: 10px 10px 0px 0px;
     width: 100%;
-    aspect-ratio: 0.665;
+    aspect-ratio: 240/360;
 }
 
 @media (max-width: 815px) {
@@ -55,7 +55,7 @@
     .filmsListWrapper{
         padding-top: 30px;
     }
-    .filmsListWrapper .container{
+    .film-container{
         gap: 10px;
     }
     .film{

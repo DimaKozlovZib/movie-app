@@ -1,0 +1,127 @@
+.windowAboutFilm{
+    position: fixed;
+    background-color: rgba(20, 20, 20, 1);
+    color: #fff;
+    top: 0;
+    z-index: 50;
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 68px 0px 40px 0px;
+}
+.content-wrapper{
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+.windowAboutFilm__poster-box{
+    max-width: 250px;
+    width: 100%;
+}
+.windowAboutFilm__poster-box img{
+    width: 100%;
+    aspect-ratio: 240/360;
+    border-radius: 5px;
+}
+
+.filmDescription{
+    margin-top: 20px;
+}
+.content-box{
+    flex: 1 1 500px;
+    margin-top: 10px;
+}
+.nameRu{
+    font-size: 32px;
+}
+.windowAboutFilm__genres{
+    color: rgba(241, 159, 7, 1);
+    font-size: 15px;
+    font-style: italic;
+}
+.button{
+    border-radius: 22px;
+    padding: 6px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+a.button{
+    background-color: rgba(241, 159, 7, 1);
+    color: #fff;
+    transition: background-color 0.15s linear;
+}
+a.button:hover{
+    background-color: rgba(241, 159, 7, 0.7);
+}
+
+.link-button-box{
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+button.button{
+    border: 2px solid rgba(241, 159, 7, 1);
+    color: #fff;
+    transition: all 0.4s linear;
+}
+button.button:hover{
+    background-color: rgba(241, 159, 7, 0.7);
+    border: 2px solid rgba(241, 159, 7, 0.7);
+}
+
+
+
+.information-list{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.list__item{
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    align-items: center;
+}
+.list__item-title{
+    width: 25%;
+}
+@media (max-width: 940px) {
+    .list__item-title{
+        width: 50%;
+    }
+}
+.list__item-data{
+    flex: 1 1;
+}
+.list__item-data{
+    color: rgba(255, 255, 255, 0.77);
+}
+
+.film-description{
+    margin-top: 20px;
+    text-align: center;
+}
+.go-out-button-box{
+    color: #fff;
+    font-size: 19px;
+}
+.go-out-button-box button{
+    color: inherit;
+    font-size: inherit;
+    font-style: italic;
+}
+
+@media (max-width: 570px) {
+    .windowAboutFilm__poster-box{
+        margin: auto;
+    }
+    .link-button-box{
+        justify-content: center;
+    }
+    .content-wrapper{
+        display: block;
+        text-align: center;
+    }
+}
