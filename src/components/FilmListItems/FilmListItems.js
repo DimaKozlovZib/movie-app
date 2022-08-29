@@ -22,7 +22,7 @@ const ItemFilm = memo((params) => {
     return (
         <div className="film" onClick={() => {
             params.setfilmIdToOpen(item.filmId);
-            params.setaboutIsOpen(true)
+            params.setaboutIsOpen(true);
         }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />

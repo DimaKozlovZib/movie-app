@@ -12,7 +12,7 @@ const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
             document.querySelector("body").style.overflow = "hidden";
             setwindowIsOpen(true);
         }
-    });
+    }, [filmId]);
 
     const getData = async (filmId) => {
         const result = await getDataAboutFilm(filmId);

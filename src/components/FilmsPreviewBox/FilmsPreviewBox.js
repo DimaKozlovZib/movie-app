@@ -11,7 +11,7 @@ const FilmsPreviewBox = memo(() => {
     const [pageNumber, setpageNumber] = useState(1);
     const [films, setfilms] = useState([]);
     const [pageCount, setpageCount] = useState(0);
-    const [goodFetchResult, setgoodFetchResult] = useState(true);
+    const [goodFetchResult, setgoodFetchResult] = useState(null);
     const filmsTitle = React.createRef();
     const [filmIdToOpen, setfilmIdToOpen] = useState(null);
     const [aboutIsOpen, setaboutIsOpen] = useState(false);
@@ -22,10 +22,13 @@ const FilmsPreviewBox = memo(() => {
 
     async function getData(PageNumber) {
         try {
+            setgoodFetchResult(null);
+
             const fetchResult = await getPosts(PageNumber);
-            setgoodFetchResult(true);
+
             setfilms(fetchResult.films);
             setpageCount(fetchResult.pagesCount);
+            setgoodFetchResult(true);
         } catch (error) {
             setgoodFetchResult(false);
         }
@@ -35,14 +38,23 @@ const FilmsPreviewBox = memo(() => {
         <div className="filmsListWrapper">
             {aboutIsOpen === true ? <AboutFilm filmId={filmIdToOpen} setwindowIsOpen={setaboutIsOpen} /> : ''}
             <h2 className="main-filmList-title" ref={filmsTitle}>Фильмы</h2>
-            <Loader loadActive={films.length !== 0} />
+
             {
-                goodFetchResult ? <FilmListItems films={films} setfilmIdToOpen={setfilmIdToOpen} setaboutIsOpen={setaboutIsOpen} /> :
-                    <Error tryAgainFunc={() => { getData(pageNumber) }} />
+                goodFetchResult === null ? <Loader loadActive={films.length !== 0} /> : ''
             }
             {
-                goodFetchResult ? <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} toScrollElement={filmsTitle} />
-                    : ''
+                goodFetchResult === true ?
+                    (
+                        <>
+                            <FilmListItems films={films} setfilmIdToOpen={setfilmIdToOpen} setaboutIsOpen={setaboutIsOpen} />
+                            <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} toScrollElement={filmsTitle} />
+                        </>
+                    )
+                    :
+                    (
+                        goodFetchResult === false ? <Error tryAgainFunc={() => { getData(pageNumber) }} />
+                            : ''
+                    )
             }
         </div>
     )

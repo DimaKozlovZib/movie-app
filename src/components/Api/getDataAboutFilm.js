@@ -2,7 +2,7 @@ export default async function getDataAboutFilm(filmId) {
     const result = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${filmId}`, {
         method: 'GET',
         headers: {
-            'X-API-KEY': 'c3f60396-9710-4c86-9e08-6b8b39d6f6dc',
+            'X-API-KEY': '8c8e1a50-6322-4135-8875-5d40a5420d86',
             'Content-Type': 'application/json',
         },
     })
