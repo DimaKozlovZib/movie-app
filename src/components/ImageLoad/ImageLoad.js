@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./ImageLoad.css";
 
-function ImageLoad({ url }) {
+const ImageLoad = memo(({ url }) => {
     const [LoadNow, setLoad] = useState(true);
 
-    function changeState() {
-        setLoad(false)
-    }
-
     return (
-        <img onLoad={changeState} src={url} className={LoadNow ? "Load-Now" : ''} />
+        <img onLoad={() => setLoad(false)} src={url} className={LoadNow ? "Load-Now" : ''} />
     )
-}
+})
 
 export default ImageLoad;

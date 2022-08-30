@@ -1,28 +1,32 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
+import { WindowAboutFilmContext } from "../Context";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
-function FilmListItems(params) {
-    const filmsArray = params.films;
+const FilmListItems = memo(({ films }) => {
+    const { setOpenFilmId, setWindowIsVisible } = useContext(WindowAboutFilmContext);
+
     return (
         <div className="container film-container">
             {
-                filmsArray.map(item => {
-                    return (<ItemFilm item={item}
+                films.map(item =>
+                    <ItemFilm
+                        item={item}
                         key={item.filmId}
-                        setfilmIdToOpen={params.setfilmIdToOpen}
-                        setaboutIsOpen={params.setaboutIsOpen} />)
-                })
+                        setOpenFilmId={setOpenFilmId}
+                        setWindowIsVisible={setWindowIsVisible}
+                    />
+                )
             }
         </div>
     )
-}
+})
 
-const ItemFilm = memo((params) => {
-    let item = params.item;
+const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible }) => {
+
     return (
         <div className="film" onClick={() => {
-            params.setfilmIdToOpen(item.filmId);
-            params.setaboutIsOpen(true);
+            setOpenFilmId(item.filmId);
+            setWindowIsVisible(true);
         }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />
@@ -30,9 +34,12 @@ const ItemFilm = memo((params) => {
             </div>
             <div className="text-contant">
                 <h3>{item.nameRu}</h3>
-                <h4>{item.genres.map(item => {
-                    return item.genre;/*изначально жанры приходят как список из объектов*/
-                }).join(", ")}</h4>
+                <h4>
+                    {
+                        item.genres.map(item => item.genre).join(", ")
+                        /*изначально жанры приходят как список из объектов*/
+                    }
+                </h4>
             </div>
         </div>
     )

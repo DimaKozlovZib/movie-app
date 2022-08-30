@@ -3,14 +3,13 @@ import getDataAboutFilm from "../Api/getDataAboutFilm";
 import ImageLoad from "../ImageLoad/ImageLoad";
 import "./AboutFilm.css";
 
-const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
-    const [DataAboutFilm, setDataAboutFilm] = useState();
+const AboutFilm = memo(({ filmId, visible, setVisible }) => {
+    const [DataAboutFilm, setDataAboutFilm] = useState(null);
 
     useEffect(() => {
         if (filmId !== null) {
             getData(filmId);
             document.querySelector("body").style.overflow = "hidden";
-            setwindowIsOpen(true);
         }
     }, [filmId]);
 
@@ -20,14 +19,14 @@ const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
     }
 
     return (
-        DataAboutFilm ?
+        visible && DataAboutFilm ?
             (<div className={`windowAboutFilm`}>
                 <div className="container">
                     <div className="go-out-button-box">
                         <button className="go-out-button" onClick={() => {
-                            setwindowIsOpen(false);
+                            setVisible(false);
                             document.querySelector("body").style.overflow = "auto";
-                        }}>{"< Назад"}</button>
+                        }}>{'< Назад'}</button>
                     </div>
                     <div className="content-wrapper">
                         <div className="windowAboutFilm__poster-box">
@@ -40,11 +39,12 @@ const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
                             </div>
 
                             <div className="genres">
-                                <h3 className="windowAboutFilm__genres">{
-                                    DataAboutFilm.genres.map(item => {
-                                        return item.genre;/*изначально жанры приходят как список из объектов*/
-                                    }).join(", ")
-                                }</h3>
+                                <h3 className="windowAboutFilm__genres">
+                                    {
+                                        DataAboutFilm.genres.map(item => item.genre).join(", ")
+                                        /*изначально жанры приходят как список из объектов*/
+                                    }
+                                </h3>
                             </div>
 
                             <div className="information-list">
@@ -77,9 +77,7 @@ const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
                                         {DataAboutFilm.countries.length > 1 ? "Страны" : "Страна"}
                                     </div>
                                     <div className="list__item-data">
-                                        {DataAboutFilm.countries.map(item => {
-                                            return item.country;
-                                        }).join(", ")}
+                                        {DataAboutFilm.countries.map(item => item.country).join(", ")}
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +91,7 @@ const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
 
                     <p className="film-description">{DataAboutFilm.description}</p>
                 </div>
-            </div>) : ""
+            </div>) : <></>
     )
 })
 

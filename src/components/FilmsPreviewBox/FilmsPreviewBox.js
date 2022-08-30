@@ -5,7 +5,6 @@ import Loader from "../Loader/Loader";
 import FilmListItems from "../FilmListItems/FilmListItems";
 import "./filmsList.css";
 import PageChange from "./PageChange/PageChange";
-import AboutFilm from "../AboutFilm/AboutFilm";
 
 const FilmsPreviewBox = memo(() => {
     const [pageNumber, setpageNumber] = useState(1);
@@ -13,12 +12,8 @@ const FilmsPreviewBox = memo(() => {
     const [pageCount, setpageCount] = useState(0);
     const [goodFetchResult, setgoodFetchResult] = useState(null);
     const filmsTitle = React.createRef();
-    const [filmIdToOpen, setfilmIdToOpen] = useState(null);
-    const [aboutIsOpen, setaboutIsOpen] = useState(false);
 
-    useEffect(() => {
-        getData(pageNumber)
-    }, [pageNumber]);
+    useEffect(() => { getData(pageNumber) }, [pageNumber]);
 
     async function getData(PageNumber) {
         try {
@@ -32,32 +27,31 @@ const FilmsPreviewBox = memo(() => {
         } catch (error) {
             setgoodFetchResult(false);
         }
-    }
+    };
 
     return (
         <div className="filmsListWrapper">
-            {aboutIsOpen === true ? <AboutFilm filmId={filmIdToOpen} setwindowIsOpen={setaboutIsOpen} /> : ''}
             <h2 className="main-filmList-title" ref={filmsTitle}>Фильмы</h2>
 
             {
-                goodFetchResult === null ? <Loader loadActive={films.length !== 0} /> : ''
+                goodFetchResult === null ? <Loader loadActive={films.length !== 0} /> : <></>
             }
             {
                 goodFetchResult === true ?
                     (
                         <>
-                            <FilmListItems films={films} setfilmIdToOpen={setfilmIdToOpen} setaboutIsOpen={setaboutIsOpen} />
-                            <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} toScrollElement={filmsTitle} />
+                            <FilmListItems films={films} />
+                            <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pagesCount={pageCount} toScrollElement={filmsTitle} />
                         </>
                     )
                     :
                     (
                         goodFetchResult === false ? <Error tryAgainFunc={() => { getData(pageNumber) }} />
-                            : ''
+                            : <></>
                     )
             }
         </div>
-    )
-})
+    );
+});
 
 export default FilmsPreviewBox;
