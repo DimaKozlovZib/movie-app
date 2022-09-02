@@ -1,8 +1,9 @@
 import React, { memo } from "react";
+import ArrowButton from "../../ArrowButton/ArrowButton";
 import "./PageChange.css";
 
-const PageChange = ({ pageNum, pagesCount, toScrollElement, setPageFunc }) => {
-
+const PageChange = ({ pageNum, pagesCount, setPageFunc, toScrollElement }) => {
+    console.log(toScrollElement)
     function changePage(newValue) {
         toScrollElement.current.scrollIntoView({ block: "center" });
         setPageFunc(newValue);
@@ -27,23 +28,13 @@ const PageChange = ({ pageNum, pagesCount, toScrollElement, setPageFunc }) => {
         )
     }
 
-    const arrowButtonChildrenElements = <div className="arrowBox"><span></span></div>
-
     return (
         <div className={"page-change-wrapper " + (pagesCount > 1 ? "" : "noVisible")}>
-
-            <button className="last-page change-page-arrowButton"
-                onClick={() => { changePage(pageNum - 1) }}
-                disabled={pageNum === 1}
-            > {arrowButtonChildrenElements} </button>
+            <ArrowButton direction={'last'} clickFunc={() => changePage(pageNum - 1)} disabled={pageNum === 1} />
 
             {createPageChangeButtons()}
 
-            <button className="next-page change-page-arrowButton"
-                onClick={() => { changePage(pageNum + 1) }}
-                disabled={pageNum === pagesCount}
-            > {arrowButtonChildrenElements} </button>
-
+            <ArrowButton direction={'next'} clickFunc={() => changePage(pageNum + 1)} disabled={pageNum === pagesCount} />
         </div>
     )
 }

@@ -12,6 +12,7 @@ const FilmsPreviewBox = memo(() => {
     const [pageCount, setpageCount] = useState(0);
     const [goodFetchResult, setgoodFetchResult] = useState(null);
     const filmsTitle = React.createRef();
+    console.log(filmsTitle)
 
     useEffect(() => { getData(pageNumber) }, [pageNumber]);
 
@@ -40,7 +41,9 @@ const FilmsPreviewBox = memo(() => {
                 goodFetchResult === true ?
                     (
                         <>
-                            <FilmListItems films={films} />
+                            <div className="container film-container">
+                                <FilmListItems films={films} />
+                            </div>
                             <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pagesCount={pageCount} toScrollElement={filmsTitle} />
                         </>
                     )

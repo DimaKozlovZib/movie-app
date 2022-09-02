@@ -1,0 +1,77 @@
+
+.SequelsAndPrequels_Similars{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+
+
+    .film{
+        width: 200px;
+        max-width: 100%;
+        .film-rating{
+            display: none;
+        }
+        .h4{
+            display: none;
+        }
+        .poster-box{
+            padding: 0px 2px;
+            box-sizing: border-box;
+        }
+    } 
+
+    .items-box{
+        justify-content: space-between;
+        display: flex;
+        min-width: 100%;
+        box-sizing: border-box;
+        min-height: 250px;
+        padding: 0px 20px;
+        
+    }
+    @media (max-width: 589px) {
+        .items-box{
+            padding: 0px 10px;
+        }
+    }
+    .loader-wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 0px;
+    }
+    .change-page-arrowButton{
+        position: absolute;
+        top: 38%;
+        z-index: 10;
+        margin: auto;
+        @media (max-width: 1000px) {
+            &{
+                top: 30%;
+            }
+        }
+        @media (max-width: 840px) {
+            &{
+                top: 25%;
+            }
+        }
+        @media (max-width: 340px) {
+            &{
+                top: 21%;
+            }
+        }
+        &:disabled{
+            display: none;
+        }
+    }
+    .last{
+        left: 0;
+    }
+    .next{
+        right: 0;
+    }
+}

@@ -12,7 +12,7 @@
 }
 .content-wrapper{
     display: flex;
-    gap: 15px;
+    gap: 25px;
     margin-top: 20px;
 }
 .windowAboutFilm__poster-box{
@@ -73,19 +73,26 @@ button.button:hover{
 }
 
 
-
+.short-description{
+    margin-top: 10px;
+}
 .information-list{
-    margin-top: 20px;
-    margin-left: 10px;
+    margin-top: 25px;
 }
 .list__item{
     display: flex;
     gap: 10px;
     margin-top: 5px;
+    padding-bottom: 4px;
     align-items: center;
 }
+.list__item:not(:first-child){
+    border-top: 1px solid rgba(255, 255, 255, 0.47);
+    padding-top: 5px;
+}
 .list__item-title{
-    width: 25%;
+    width: 50%;
+    padding-left: 10px;
 }
 @media (max-width: 940px) {
     .list__item-title{
@@ -99,9 +106,15 @@ button.button:hover{
     color: rgba(255, 255, 255, 0.77);
 }
 
+.review{
+    margin-top: 20px;
+}
+.review [class*=title]{
+    font-size: 25px;
+}
+
 .film-description{
     margin-top: 20px;
-    text-align: center;
 }
 .go-out-button-box{
     color: #fff;
@@ -122,6 +135,12 @@ button.button:hover{
     }
     .content-wrapper{
         display: block;
+    }
+    .nameRu, .genres, .short-description{
         text-align: center;
     }
+}
+
+.SequelsAndPrequels_Similars-wrapper{
+    margin-top: 20px;
 }

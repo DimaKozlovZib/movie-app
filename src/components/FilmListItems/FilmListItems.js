@@ -2,29 +2,31 @@ import React, { memo, useContext } from "react";
 import { WindowAboutFilmContext } from "../Context";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
-const FilmListItems = memo(({ films }) => {
+const FilmListItems = memo(({ films, style }) => {
     const { setOpenFilmId, setWindowIsVisible } = useContext(WindowAboutFilmContext);
 
     return (
-        <div className="container film-container">
+        <>
             {
                 films.map(item =>
                     <ItemFilm
                         item={item}
+                        style={style ? style : null}
                         key={item.filmId}
                         setOpenFilmId={setOpenFilmId}
                         setWindowIsVisible={setWindowIsVisible}
                     />
                 )
             }
-        </div>
+        </>
+
     )
 })
 
-const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible }) => {
+const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible, style }) => {
 
     return (
-        <div className="film" onClick={() => {
+        <div className="film" style={style ? style : null} onClick={() => {
             setOpenFilmId(item.filmId);
             setWindowIsVisible(true);
         }}>
@@ -36,7 +38,7 @@ const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible }) => {
                 <h3>{item.nameRu}</h3>
                 <h4>
                     {
-                        item.genres.map(item => item.genre).join(", ")
+                        item.genres ? item.genres.map(item => item.genre).join(", ") : ''
                         /*изначально жанры приходят как список из объектов*/
                     }
                 </h4>
