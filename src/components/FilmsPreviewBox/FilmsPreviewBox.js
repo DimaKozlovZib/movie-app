@@ -5,47 +5,56 @@ import Loader from "../Loader/Loader";
 import FilmListItems from "../FilmListItems/FilmListItems";
 import "./filmsList.css";
 import PageChange from "./PageChange/PageChange";
-import AboutFilm from "../AboutFilm/AboutFilm";
 
 const FilmsPreviewBox = memo(() => {
     const [pageNumber, setpageNumber] = useState(1);
     const [films, setfilms] = useState([]);
     const [pageCount, setpageCount] = useState(0);
-    const [goodFetchResult, setgoodFetchResult] = useState(true);
+    const [goodFetchResult, setgoodFetchResult] = useState(null);
     const filmsTitle = React.createRef();
-    const [filmIdToOpen, setfilmIdToOpen] = useState(null);
-    const [aboutIsOpen, setaboutIsOpen] = useState(false);
+    console.log(filmsTitle)
 
-    useEffect(() => {
-        getData(pageNumber)
-    }, [pageNumber]);
+    useEffect(() => { getData(pageNumber) }, [pageNumber]);
 
     async function getData(PageNumber) {
         try {
+            setgoodFetchResult(null);
+
             const fetchResult = await getPosts(PageNumber);
-            setgoodFetchResult(true);
+
             setfilms(fetchResult.films);
             setpageCount(fetchResult.pagesCount);
+            setgoodFetchResult(true);
         } catch (error) {
             setgoodFetchResult(false);
         }
-    }
+    };
 
     return (
         <div className="filmsListWrapper">
-            {aboutIsOpen === true ? <AboutFilm filmId={filmIdToOpen} setwindowIsOpen={setaboutIsOpen} /> : ''}
             <h2 className="main-filmList-title" ref={filmsTitle}>Фильмы</h2>
-            <Loader loadActive={films.length !== 0} />
+
             {
-                goodFetchResult ? <FilmListItems films={films} setfilmIdToOpen={setfilmIdToOpen} setaboutIsOpen={setaboutIsOpen} /> :
-                    <Error tryAgainFunc={() => { getData(pageNumber) }} />
+                goodFetchResult === null ? <Loader loadActive={films.length !== 0} /> : <></>
             }
             {
-                goodFetchResult ? <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pageCount={pageCount} toScrollElement={filmsTitle} />
-                    : ''
+                goodFetchResult === true ?
+                    (
+                        <>
+                            <div className="container film-container">
+                                <FilmListItems films={films} />
+                            </div>
+                            <PageChange pageNum={pageNumber} setPageFunc={setpageNumber} pagesCount={pageCount} toScrollElement={filmsTitle} />
+                        </>
+                    )
+                    :
+                    (
+                        goodFetchResult === false ? <Error tryAgainFunc={() => { getData(pageNumber) }} />
+                            : <></>
+                    )
             }
         </div>
-    )
-})
+    );
+});
 
 export default FilmsPreviewBox;

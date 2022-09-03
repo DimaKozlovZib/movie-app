@@ -1,28 +1,34 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
+import { WindowAboutFilmContext } from "../Context";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
-function FilmListItems(params) {
-    const filmsArray = params.films;
-    return (
-        <div className="container film-container">
-            {
-                filmsArray.map(item => {
-                    return (<ItemFilm item={item}
-                        key={item.filmId}
-                        setfilmIdToOpen={params.setfilmIdToOpen}
-                        setaboutIsOpen={params.setaboutIsOpen} />)
-                })
-            }
-        </div>
-    )
-}
+const FilmListItems = memo(({ films, style }) => {
+    const { setOpenFilmId, setWindowIsVisible } = useContext(WindowAboutFilmContext);
 
-const ItemFilm = memo((params) => {
-    let item = params.item;
     return (
-        <div className="film" onClick={() => {
-            params.setfilmIdToOpen(item.filmId);
-            params.setaboutIsOpen(true)
+        <>
+            {
+                films.map(item =>
+                    <ItemFilm
+                        item={item}
+                        style={style ? style : null}
+                        key={item.filmId}
+                        setOpenFilmId={setOpenFilmId}
+                        setWindowIsVisible={setWindowIsVisible}
+                    />
+                )
+            }
+        </>
+
+    )
+})
+
+const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible, style }) => {
+
+    return (
+        <div className="film" style={style ? style : null} onClick={() => {
+            setOpenFilmId(item.filmId);
+            setWindowIsVisible(true);
         }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />
@@ -30,9 +36,12 @@ const ItemFilm = memo((params) => {
             </div>
             <div className="text-contant">
                 <h3>{item.nameRu}</h3>
-                <h4>{item.genres.map(item => {
-                    return item.genre;/*изначально жанры приходят как список из объектов*/
-                }).join(", ")}</h4>
+                <h4>
+                    {
+                        item.genres ? item.genres.map(item => item.genre).join(", ") : ''
+                        /*изначально жанры приходят как список из объектов*/
+                    }
+                </h4>
             </div>
         </div>
     )

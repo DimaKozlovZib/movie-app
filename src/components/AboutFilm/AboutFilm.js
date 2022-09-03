@@ -1,34 +1,65 @@
 import React, { useState, useEffect, memo } from "react";
 import getDataAboutFilm from "../Api/getDataAboutFilm";
+import getSequelsAndPrequels from "../Api/getSequelsAndPrequels";
+import getSimilars from "../Api/getSimilars";
+import FilmsSlider from "../FilmsSlider/FilmsSlider";
 import ImageLoad from "../ImageLoad/ImageLoad";
 import "./AboutFilm.css";
 
-const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
-    const [DataAboutFilm, setDataAboutFilm] = useState();
+const AboutFilm = memo(({ filmId, visible, setVisible }) => {
+    const [DataAboutFilm, setDataAboutFilm] = useState(null);
+    const [InfoList, setInfoList] = useState(null);
+    const [SequelsAndPrequels_Similars, setSequelsAndPrequels_Similars] = useState(null);
+
+    useEffect(() => {
+        setInfoList(DataAboutFilm ?
+            [
+                { itemName: "Длина", data: `${DataAboutFilm.filmLength} мин` },
+                { itemName: "Год", data: DataAboutFilm.year },
+                { itemName: "Ограничение", data: `${DataAboutFilm.ratingAgeLimits.match(/(\d+)/)[0]}+` },
+                { itemName: "Слоган", data: DataAboutFilm.slogan },
+                { itemName: "Рейтинг MPAA", data: DataAboutFilm.ratingMpaa },
+                {
+                    itemName: DataAboutFilm.countries.length > 1 ? "Страны" : "Страна", data:
+                        DataAboutFilm.countries.map(item => item.country).join(", ")
+                }
+            ] : null
+        );
+    }, [DataAboutFilm])
 
     useEffect(() => {
         if (filmId !== null) {
             getData(filmId);
+            getSequelsAndPrequels_Similars(filmId);
             document.querySelector("body").style.overflow = "hidden";
-            setwindowIsOpen(true);
         }
-    });
+    }, [filmId]);
 
     const getData = async (filmId) => {
         const result = await getDataAboutFilm(filmId);
         setDataAboutFilm(result);
-    }
+    };
+
+    const getSequelsAndPrequels_Similars = async (filmId) => {
+        const SequelsAndPrequels = await getSequelsAndPrequels(filmId);
+        const similars = await getSimilars(filmId);
+        setSequelsAndPrequels_Similars([...SequelsAndPrequels, ...similars.items]);
+    };
+
+    let genres = (DataAboutFilm ? DataAboutFilm.genres.map(item => item.genre).join(", ") : '');
 
     return (
-        DataAboutFilm ?
+        visible && InfoList && (DataAboutFilm ? DataAboutFilm.kinopoiskId === filmId : false) ?
             (<div className={`windowAboutFilm`}>
                 <div className="container">
+
                     <div className="go-out-button-box">
                         <button className="go-out-button" onClick={() => {
-                            setwindowIsOpen(false);
+                            setVisible(false);
                             document.querySelector("body").style.overflow = "auto";
-                        }}>{"< Назад"}</button>
+                        }}>{'< Назад'}</button>
                     </div>
+
                     <div className="content-wrapper">
                         <div className="windowAboutFilm__poster-box">
                             <ImageLoad url={DataAboutFilm.posterUrlPreview} />
@@ -40,60 +71,60 @@ const AboutFilm = memo(({ filmId, setwindowIsOpen }) => {
                             </div>
 
                             <div className="genres">
-                                <h3 className="windowAboutFilm__genres">{
-                                    DataAboutFilm.genres.map(item => {
-                                        return item.genre;/*изначально жанры приходят как список из объектов*/
-                                    }).join(", ")
-                                }</h3>
+                                <h3 className="windowAboutFilm__genres">
+                                    {genres}
+                                </h3>
                             </div>
 
-                            <div className="information-list">
-                                <div className="list__item">
-                                    <div className="list__item-title">
-                                        Длина
-                                    </div>
-                                    <div className="list__item-data">
-                                        {`${DataAboutFilm.filmLength} мин`}
-                                    </div>
-                                </div>
-                                <div className="list__item">
-                                    <div className="list__item-title">
-                                        Год
-                                    </div>
-                                    <div className="list__item-data">
-                                        {DataAboutFilm.year}
-                                    </div>
-                                </div>
-                                <div className="list__item">
-                                    <div className="list__item-title">
-                                        Ограничение
-                                    </div>
-                                    <div className="list__item-data">
-                                        {`${DataAboutFilm.ratingAgeLimits.match(/(\d+)/)[0]}+`}
-                                    </div>
-                                </div>
-                                <div className="list__item">
-                                    <div className="list__item-title">
-                                        {DataAboutFilm.countries.length > 1 ? "Страны" : "Страна"}
-                                    </div>
-                                    <div className="list__item-data">
-                                        {DataAboutFilm.countries.map(item => {
-                                            return item.country;
-                                        }).join(", ")}
-                                    </div>
-                                </div>
+                            <div className="short-description">
+                                <p>{DataAboutFilm.shortDescription}</p>
                             </div>
 
                             <div className="link-button-box">
                                 <a href={DataAboutFilm.webUrl} target="_blank" rel="noreferrer" className="button">Смотреть</a>
                                 <button className="button">Буду смотреть</button>
                             </div>
+
+                            <div className="information-list">
+                                {
+                                    InfoList.map(({ itemName, data }) => <ListItem key={itemName} name={itemName} data={data} />)
+                                }
+                            </div>
+
                         </div>
                     </div>
-
-                    <p className="film-description">{DataAboutFilm.description}</p>
+                    <div className="review">
+                        <div className="description-box">
+                            <div className="description-box__title">
+                                <h3>Описание фильма</h3>
+                            </div>
+                            <p className="film-description">{DataAboutFilm.description}</p>
+                        </div>
+                        <div className="SequelsAndPrequels_Similars-wrapper">
+                            <div className="SequelsAndPrequels_Similars__title">
+                                <h3>Похожие фильмы</h3>
+                            </div>
+                            <FilmsSlider films={SequelsAndPrequels_Similars} />
+                        </div>
+                    </div>
                 </div>
-            </div>) : ""
+            </div>) : <></>
+    )
+});
+
+
+
+
+const ListItem = memo(({ name, data }) => {
+    return (
+        <div className="list__item">
+            <div className="list__item-title">
+                {name}
+            </div>
+            <div className="list__item-data">
+                {data ? data : '-'}
+            </div>
+        </div>
     )
 })
 
