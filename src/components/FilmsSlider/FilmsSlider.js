@@ -11,10 +11,12 @@ const FilmsSlider = memo(({ films }) => {
     const [filmItemWidth, setfilmItemWidth] = useState(null);
     const [scrollCounter, setscrollCounter] = useState(0);
     const [X, setX] = useState(0);
-    const filmItemsBox = useRef();
     const [slidesToShow, setslidesToShow] = useState(5);
     const [scrollSlides, setscrollSlides] = useState(3);
     const [GapItemsBox, setGapItemsBox] = useState(20);
+
+    const filmItemsBox = useRef();
+    const filmItemsBoxPointers = [775, 560, 430];
 
     useEffect(() => {
         window.addEventListener('resize', getWidth);
@@ -24,32 +26,30 @@ const FilmsSlider = memo(({ films }) => {
         };
     }, []);
 
-
-
     function getWidth() {
+
+        const setStates = (gap, toShow, toScroll) => {
+            setGapItemsBox(gap);
+            setslidesToShow(toShow);
+            setscrollSlides(toScroll);
+        }
         let width = filmItemsBox.current.clientWidth;
         //width films box
         setBoxWidth(width);
 
-        if (width > 775) {
-            setGapItemsBox(20);
-            setslidesToShow(5);
-            setscrollSlides(3);
+        const wp = filmItemsBoxPointers;
 
-        } else if (width < 775 && width > 560) {
-            setGapItemsBox(20);
-            setslidesToShow(4);
-            setscrollSlides(2);
+        if (width > wp[0]) {
+            setStates(20, 5, 3);
 
-        } else if (width < 560 && width > 430) {
-            setGapItemsBox(10);
-            setscrollSlides(2);
-            setslidesToShow(3);
+        } else if (width < wp[0] && width > wp[1]) {
+            setStates(20, 4, 2);
 
-        } else if (width < 430) {
-            setGapItemsBox(10);
-            setslidesToShow(2);
-            setscrollSlides(2);
+        } else if (width < wp[1] && width > wp[2]) {
+            setStates(10, 3, 2);
+
+        } else if (width < wp[2]) {
+            setStates(10, 2, 2);
         }
     }
 
@@ -58,15 +58,14 @@ const FilmsSlider = memo(({ films }) => {
     }, [filmItemsBox]);
 
     useEffect(() => {
-        let width = ((BoxWidth - (slidesToShow + 1) * GapItemsBox) / slidesToShow);
+        let width = (BoxWidth - (slidesToShow + 1) * GapItemsBox) / slidesToShow;
         //width film item
         setfilmItemWidth(width);
+        setStyle({ width: width + 'px', maxWidth: width + "px", minWidth: width + 'px' });
 
-        const x = (width * scrollSlides + scrollSlides * GapItemsBox) * scrollCounter;
+        const x = scrollSlides * (width + GapItemsBox) * scrollCounter;
         setX(x);
         setScroll({ transform: `translate(${-x}px, 0px)`, WebkitTransform: `translate(${-x}px, 0px)`, gap: GapItemsBox + 'px' })
-
-        setStyle({ width: width + 'px', maxWidth: width + "px", minWidth: width + 'px' });
     }, [BoxWidth, slidesToShow, scrollSlides, scrollCounter, GapItemsBox]);
 
     function scrollFunction(scrollToBack = false) {
@@ -83,13 +82,17 @@ const FilmsSlider = memo(({ films }) => {
         x = x < 0 ? 0 : x;
         setX(x);
         setScroll({ transform: `translate(${-x}px, 0px)`, WebkitTransform: `translate(${-x}px, 0px)`, gap: GapItemsBox + 'px' })
+
     }
+
+    const scrollForward = () => { scrollFunction() };
+    const scrollBack = () => { scrollFunction(true) };
 
     return (
         <div className="SequelsAndPrequels_Similars" ref={filmItemsBox}>
             <ArrowButton
                 direction={'last'}
-                clickFunc={() => scrollFunction(!0)}
+                clickFunc={scrollBack}
                 disabled={X === 0} />
             <div className="items-box" style={Scroll}>
                 {
@@ -98,7 +101,7 @@ const FilmsSlider = memo(({ films }) => {
             </div>
             <ArrowButton
                 direction={'next'}
-                clickFunc={() => scrollFunction()}
+                clickFunc={scrollForward}
                 disabled={films ? (((films.length - scrollCounter * scrollSlides) - slidesToShow) <= 0) : false}
             />
         </div>
