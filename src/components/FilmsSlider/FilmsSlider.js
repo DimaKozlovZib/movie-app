@@ -66,12 +66,12 @@ const FilmsSlider = memo(({ films }) => {
         const x = scrollSlides * (width + GapItemsBox) * scrollCounter;
         setX(x);
         setScroll({ transform: `translate(${-x}px, 0px)`, WebkitTransform: `translate(${-x}px, 0px)`, gap: GapItemsBox + 'px' })
-    }, [BoxWidth, slidesToShow, scrollSlides, scrollCounter, GapItemsBox]);
+    }, [BoxWidth, slidesToShow, scrollSlides, GapItemsBox]);
 
     function scrollFunction(scrollToBack = false) {
         const condition = (films.length - (scrollToBack ? scrollCounter - 1 : scrollCounter) * scrollSlides) - slidesToShow;
         const Counter = scrollToBack ? scrollCounter - 1 : scrollCounter + 1;
-
+        console.log(condition, condition < scrollSlides && condition > 0)
         setscrollCounter(Counter);
 
         const scrollWidth = condition < scrollSlides && condition > 0 ?
