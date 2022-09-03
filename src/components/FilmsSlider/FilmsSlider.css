@@ -88,10 +88,6 @@
   }
 }
 
-.SequelsAndPrequels_Similars .change-page-arrowButton:disabled {
-  display: none;
-}
-
 .SequelsAndPrequels_Similars .last {
   left: 0;
 }
