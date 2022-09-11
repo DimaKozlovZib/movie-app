@@ -16,7 +16,10 @@ const AboutFilm = memo(({ filmId, visible, setVisible }) => {
             [
                 { itemName: "Длина", data: `${DataAboutFilm.filmLength} мин` },
                 { itemName: "Год", data: DataAboutFilm.year },
-                { itemName: "Ограничение", data: `${DataAboutFilm.ratingAgeLimits.match(/(\d+)/)[0]}+` },
+                {
+                    itemName: "Ограничение", data: `${DataAboutFilm.ratingAgeLimits ?
+                        DataAboutFilm.ratingAgeLimits.match(/(\d+)/)[0] + '+' : '-'}`
+                },
                 { itemName: "Слоган", data: DataAboutFilm.slogan },
                 { itemName: "Рейтинг MPAA", data: DataAboutFilm.ratingMpaa },
                 {
