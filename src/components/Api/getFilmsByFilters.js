@@ -1,3 +1,5 @@
+import { API_KEY } from "./constants";
+
 export default async function getFilmsByFilters({ ActiveGenres, ActiveCountries, MaxYear, MinYear, Sort }, pageNumber) {
     const ActiveGenresFilt = ActiveGenres && ActiveGenres.id !== 0 ? 'genres=' + ActiveGenres.id : null;
     const ActiveCountriesFilt = ActiveCountries && ActiveCountries.id !== 0 ? 'countries=' + ActiveCountries.id : null;
@@ -15,7 +17,7 @@ export default async function getFilmsByFilters({ ActiveGenres, ActiveCountries,
         `https://kinopoiskapiunofficial.tech/api/v2.2/films?${fetchAtributes}`, {
         method: 'GET',
         headers: {
-            'X-API-KEY': 'c3f60396-9710-4c86-9e08-6b8b39d6f6dc',
+            'X-API-KEY': API_KEY,
             'Content-Type': 'application/json',
         },
     })
