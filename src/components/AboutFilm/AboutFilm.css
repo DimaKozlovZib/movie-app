@@ -1,10 +1,8 @@
 .windowAboutFilm{
-    position: fixed;
     background-color: rgba(20, 20, 20, 1);
     color: #fff;
     top: 0;
     z-index: 50;
-    height: 100%;
     overflow: auto;
     width: 100%;
     box-sizing: border-box;

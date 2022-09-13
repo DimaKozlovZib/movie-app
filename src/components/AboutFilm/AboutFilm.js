@@ -5,11 +5,14 @@ import getSimilars from "../Api/getSimilars";
 import FilmsSlider from "../FilmsSlider/FilmsSlider";
 import ImageLoad from "../ImageLoad/ImageLoad";
 import "./AboutFilm.css";
+import { useNavigate } from 'react-router-dom';
+import Loader from "../Loader/Loader";
 
-const AboutFilm = memo(({ filmId, visible, setVisible }) => {
+const AboutFilm = memo(({ filmId }) => {
     const [DataAboutFilm, setDataAboutFilm] = useState(null);
     const [InfoList, setInfoList] = useState(null);
     const [SequelsAndPrequels_Similars, setSequelsAndPrequels_Similars] = useState(null);
+    const history = useNavigate();
 
     useEffect(() => {
         setInfoList(DataAboutFilm ?
@@ -34,7 +37,6 @@ const AboutFilm = memo(({ filmId, visible, setVisible }) => {
         if (filmId !== null) {
             getData(filmId);
             getSequelsAndPrequels_Similars(filmId);
-            document.querySelector("body").style.overflow = "hidden";
         }
     }, [filmId]);
 
@@ -52,67 +54,65 @@ const AboutFilm = memo(({ filmId, visible, setVisible }) => {
     let genres = (DataAboutFilm ? DataAboutFilm.genres.map(item => item.genre).join(", ") : '');
 
     return (
-        visible && InfoList && (DataAboutFilm ? DataAboutFilm.kinopoiskId === filmId : false) ?
-            (<div className={`windowAboutFilm`}>
-                <div className="container">
+        DataAboutFilm ? <div className={`windowAboutFilm`}>
+            <div className="container">
 
-                    <div className="go-out-button-box">
-                        <button className="go-out-button" onClick={() => {
-                            setVisible(false);
-                            document.querySelector("body").style.overflow = "auto";
-                        }}>{'< Назад'}</button>
+                <div className="go-out-button-box">
+                    <button className="go-out-button" onClick={() => {
+                        history(-1);
+                    }}>{'< Назад'}</button>
+                </div>
+
+                <div className="content-wrapper">
+                    <div className="windowAboutFilm__poster-box">
+                        <ImageLoad url={DataAboutFilm.posterUrlPreview} />
                     </div>
 
-                    <div className="content-wrapper">
-                        <div className="windowAboutFilm__poster-box">
-                            <ImageLoad url={DataAboutFilm.posterUrlPreview} />
+                    <div className="content-box">
+                        <div className="filmName">
+                            <h2 className="nameRu">{`${DataAboutFilm.nameRu} (${DataAboutFilm.year})`}</h2>
                         </div>
 
-                        <div className="content-box">
-                            <div className="filmName">
-                                <h2 className="nameRu">{`${DataAboutFilm.nameRu} (${DataAboutFilm.year})`}</h2>
-                            </div>
-
-                            <div className="genres">
-                                <h3 className="windowAboutFilm__genres">
-                                    {genres}
-                                </h3>
-                            </div>
-
-                            <div className="short-description">
-                                <p>{DataAboutFilm.shortDescription}</p>
-                            </div>
-
-                            <div className="link-button-box">
-                                <a href={DataAboutFilm.webUrl} target="_blank" rel="noreferrer" className="button">Смотреть</a>
-                                <button className="button">Буду смотреть</button>
-                            </div>
-
-                            <div className="information-list">
-                                {
-                                    InfoList.map(({ itemName, data }) => <ListItem key={itemName} name={itemName} data={data} />)
-                                }
-                            </div>
-
+                        <div className="genres">
+                            <h3 className="windowAboutFilm__genres">
+                                {genres}
+                            </h3>
                         </div>
-                    </div>
-                    <div className="review">
-                        <div className="description-box">
-                            <div className="description-box__title">
-                                <h3>Описание фильма</h3>
-                            </div>
-                            <p className="film-description">{DataAboutFilm.description}</p>
+
+                        <div className="short-description">
+                            <p>{DataAboutFilm.shortDescription}</p>
                         </div>
-                        <div className="SequelsAndPrequels_Similars-wrapper">
-                            <div className="SequelsAndPrequels_Similars__title">
-                                <h3>Похожие фильмы</h3>
-                            </div>
-                            <FilmsSlider films={SequelsAndPrequels_Similars} />
+
+                        <div className="link-button-box">
+                            <a href={DataAboutFilm.webUrl} target="_blank" rel="noreferrer" className="button">Смотреть</a>
+                            <button className="button">Буду смотреть</button>
                         </div>
+
+                        <div className="information-list">
+                            {
+                                InfoList ? InfoList.map(({ itemName, data }) =>
+                                    <ListItem key={itemName} name={itemName} data={data} />) : ''
+                            }
+                        </div>
+
                     </div>
                 </div>
-            </div>) : <></>
-    )
+                <div className="review">
+                    <div className="description-box">
+                        <div className="description-box__title">
+                            <h3>Описание фильма</h3>
+                        </div>
+                        <p className="film-description">{DataAboutFilm.description}</p>
+                    </div>
+                    <div className="SequelsAndPrequels_Similars-wrapper">
+                        <div className="SequelsAndPrequels_Similars__title">
+                            <h3>Похожие фильмы</h3>
+                        </div>
+                        <FilmsSlider films={SequelsAndPrequels_Similars} />
+                    </div>
+                </div>
+            </div>
+        </div> : <Loader />)
 });
 
 

@@ -1,10 +1,9 @@
-import React, { memo, useContext } from "react";
-import { WindowAboutFilmContext } from "../Context";
+import React, { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
 const FilmListItems = memo(({ films, style }) => {
-    const { setOpenFilmId, setWindowIsVisible } = useContext(WindowAboutFilmContext);
-
+    const history = useNavigate();
     return (
         <>
             {
@@ -12,9 +11,8 @@ const FilmListItems = memo(({ films, style }) => {
                     <ItemFilm
                         item={item}
                         style={style ? style : null}
+                        history={history}
                         key={item.filmId}
-                        setOpenFilmId={setOpenFilmId}
-                        setWindowIsVisible={setWindowIsVisible}
                     />
                 ) : ''
             }
@@ -23,12 +21,11 @@ const FilmListItems = memo(({ films, style }) => {
     )
 })
 
-const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible, style }) => {
+const ItemFilm = memo(({ item, style, history }) => {
 
     return (
         <div className="film" style={style ? style : null} onClick={() => {
-            setOpenFilmId(item.filmId || item.kinopoiskId);
-            setWindowIsVisible(true);
+            history('/movie-app/films/' + (item.filmId || item.kinopoiskId));
         }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />

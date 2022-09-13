@@ -8,7 +8,7 @@ export default async function getFilmsByFilters({ ActiveGenres, ActiveCountries,
     const MaxYearFilt = MaxYear && MaxYear > 0 ? 'yearTo=' + MaxYear : null;
     const MinYearFilt = MinYear ? 'yearFrom=' + MinYear : null;
     const pageNumberFilt = 'page=' + pageNumber;
-    const order = 'order=' + Sort.id;
+    const order = Sort ? 'order=' + Sort.id : null;
 
     const fetchAtributes = [ActiveGenresFilt, ActiveCountriesFilt, MaxYearFilt, MinYearFilt, pageNumberFilt, order, 'type=FILM']
         .filter(item => !item && item === null ? false : true).join('&');

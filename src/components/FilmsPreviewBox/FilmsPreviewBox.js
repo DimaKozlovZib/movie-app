@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import Error from "../Error/Error";
 import Loader from "../Loader/Loader";
 import FilmListItems from "../FilmListItems/FilmListItems";
@@ -13,9 +13,11 @@ const FilmsPreviewBox = memo(() => {
     const [pageCount, setpageCount] = useState(0);
     const [goodFetchResult, setgoodFetchResult] = useState(null);
     const filmsTitle = React.createRef();
-    const [Filters, setFilters] = useState({ clear: true });
+    const [Filters, setFilters] = useState({});
 
-    useEffect(() => { getData(pageNumber) }, [pageNumber, Filters]);
+    useEffect(() => {
+        getData(pageNumber)
+    }, [pageNumber, Filters])
 
     async function getData(PageNumber) {
         try {
@@ -26,6 +28,7 @@ const FilmsPreviewBox = memo(() => {
             setfilms(fetchResult.films || fetchResult.items);
             setpageCount(fetchResult.pagesCount || fetchResult.totalPages);
             setgoodFetchResult(true);
+            return fetchResult;
         } catch (error) {
             setgoodFetchResult(false);
         }
