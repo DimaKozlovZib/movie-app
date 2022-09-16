@@ -28,7 +28,7 @@
   min-height: 250px;
   padding: 0px 20px;
 }
-@media (max-width: 589px) {
+@media (max-width: 590px) {
   .SequelsAndPrequels_Similars .items-box {
     padding: 0px 10px;
   }
@@ -51,14 +51,14 @@
     top: 30%;
   }
 }
-@media (max-width: 840px) {
+@media (max-width: 475px) {
   .SequelsAndPrequels_Similars .change-page-arrowButton {
-    top: 25%;
+    top: 37%;
   }
 }
-@media (max-width: 340px) {
+@media (max-width: 370px) {
   .SequelsAndPrequels_Similars .change-page-arrowButton {
-    top: 21%;
+    top: 31%;
   }
 }
 .SequelsAndPrequels_Similars .last {

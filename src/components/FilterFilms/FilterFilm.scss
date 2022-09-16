@@ -84,7 +84,9 @@
     margin-top: 5px;
 }
 .buttons-and-sort {
+    gap: 10px;
     display: flex;
+    flex-wrap: wrap-reverse;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
