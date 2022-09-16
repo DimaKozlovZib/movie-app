@@ -1,6 +1,6 @@
 import { API_KEY } from "./constants";
 
-export default async function getPosts(PageNumber) {
+export default async function getTopFims({ PageNumber }) {
     const result = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/top?page=${PageNumber}`, {
         method: 'GET',
         headers: {

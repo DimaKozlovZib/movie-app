@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AboutPath, FilmsListPath } from '../../routes';
+import { AboutPath, FilmsListPath, TopFilmsPath } from '../../routes';
 import "./Footer.css"
 
 const Footer = () => {
@@ -18,6 +18,9 @@ const Footer = () => {
                         </li>
                         <li>
                             <Link to={`/${FilmsListPath}`}>Фильмы</Link>
+                        </li>
+                        <li>
+                            <Link to={`/${TopFilmsPath}`}>Топ фильмов</Link>
                         </li>
                     </ul>
                 </div>

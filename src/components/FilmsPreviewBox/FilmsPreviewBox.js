@@ -5,9 +5,8 @@ import FilmListItems from "../FilmListItems/FilmListItems";
 import "./filmsList.css";
 import PageChange from "./PageChange/PageChange";
 import FilterFilms from "../FilterFilms/FilterFilms";
-import getFilmsByFilters from "../Api/getFilmsByFilters";
 
-const FilmsPreviewBox = memo(() => {
+const FilmsPreviewBox = memo(({ getApiFunc, needFilters, title }) => {
     const [pageNumber, setpageNumber] = useState(1);
     const [films, setfilms] = useState([]);
     const [pageCount, setpageCount] = useState(0);
@@ -23,7 +22,7 @@ const FilmsPreviewBox = memo(() => {
         try {
             setgoodFetchResult(null);
 
-            const fetchResult = await getFilmsByFilters(Filters, PageNumber);
+            const fetchResult = await getApiFunc({ Filters, PageNumber });
 
             setfilms(fetchResult.films || fetchResult.items);
             setpageCount(fetchResult.pagesCount || fetchResult.totalPages);
@@ -37,10 +36,10 @@ const FilmsPreviewBox = memo(() => {
     return (
         <div className="filmsListWrapper">
             <div className="container">
-                <h2 className="main-filmList-title" ref={filmsTitle}>Фильмы</h2>
-                <FilterFilms Filters={Filters} setFilters={setFilters} />
-
-
+                <h2 className="main-filmList-title" ref={filmsTitle}>{title}</h2>
+                {
+                    needFilters ? <FilterFilms Filters={Filters} setFilters={setFilters} /> : ''
+                }
                 {
                     goodFetchResult === null ? <Loader loadActive={films.length !== 0} /> : <></>
                 }
