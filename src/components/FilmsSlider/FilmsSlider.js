@@ -36,7 +36,6 @@ const FilmsSlider = memo(({ films }) => {
         let width = filmItemsBox.current.clientWidth;
         //width films box
         setBoxWidth(width);
-
         const wp = filmItemsBoxPointers;
 
         if (width > wp[0]) {

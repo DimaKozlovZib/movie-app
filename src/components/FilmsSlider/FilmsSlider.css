@@ -1,98 +1,69 @@
 .SequelsAndPrequels_Similars {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
+  flex-wrap: nowrap;
   overflow-x: hidden;
   position: relative;
   width: 100%;
   margin-top: 20px;
 }
-
 .SequelsAndPrequels_Similars .film {
   width: 200px;
   max-width: 100%;
 }
-
 .SequelsAndPrequels_Similars .film .film-rating {
   display: none;
 }
-
 .SequelsAndPrequels_Similars .film .h4 {
   display: none;
 }
-
 .SequelsAndPrequels_Similars .film .poster-box {
   padding: 0px 2px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 .SequelsAndPrequels_Similars .items-box {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  justify-content: space-between;
   display: flex;
   min-width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   min-height: 250px;
   padding: 0px 20px;
 }
-
-@media (max-width: 589px) {
+@media (max-width: 590px) {
   .SequelsAndPrequels_Similars .items-box {
     padding: 0px 10px;
   }
 }
-
 .SequelsAndPrequels_Similars .loader-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin-top: 0px;
 }
-
 .SequelsAndPrequels_Similars .change-page-arrowButton {
   position: absolute;
   top: 38%;
   z-index: 10;
   margin: auto;
 }
-
 @media (max-width: 1000px) {
   .SequelsAndPrequels_Similars .change-page-arrowButton {
     top: 30%;
   }
 }
-
-@media (max-width: 840px) {
+@media (max-width: 475px) {
   .SequelsAndPrequels_Similars .change-page-arrowButton {
-    top: 25%;
+    top: 37%;
   }
 }
-
-@media (max-width: 340px) {
+@media (max-width: 370px) {
   .SequelsAndPrequels_Similars .change-page-arrowButton {
-    top: 21%;
+    top: 31%;
   }
 }
-
 .SequelsAndPrequels_Similars .last {
   left: 0;
 }
-
 .SequelsAndPrequels_Similars .next {
   right: 0;
-}
-/*# sourceMappingURL=FilmsSlider.css.map */
+}/*# sourceMappingURL=FilmsSlider.css.map */

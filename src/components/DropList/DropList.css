@@ -1,0 +1,68 @@
+.Arrow {
+  width: 6px;
+  height: 6px;
+  content: "";
+  transform: rotate(45deg);
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+
+.DropList {
+  width: 200px;
+  color: #fff;
+  border-radius: 10px;
+  position: relative;
+}
+.DropList.active .DropList__items-box {
+  display: block;
+}
+.DropList.active .Arrow {
+  transform: rotate(225deg);
+}
+.DropList.active .DropList__title {
+  z-index: 10;
+}
+
+.DropList__title {
+  border: 3px solid rgb(149, 149, 149);
+  background-color: #1f1f1f;
+  padding: 10px;
+  color: inherit;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.DropList [class*=__items-box] {
+  display: none;
+  position: absolute;
+  top: 41px;
+  -webkit-overflow-scrolling: touch;
+  height: 150px;
+  overflow-y: auto;
+  border-radius: 0px 0px 10px 10px;
+  border-bottom: 15px solid #1f1f1f;
+  overflow-x: hidden;
+  width: 100%;
+  z-index: 1;
+  padding: 15px 0px;
+  background-color: #1f1f1f;
+}
+.DropList [class*=__items-box]::-webkit-scrollbar {
+  width: 0;
+}
+.DropList [class*=__items-box] > * {
+  padding: 5px 0px 5px 10px;
+  -moz-text-align-last: left;
+       text-align-last: left;
+  display: block;
+  color: inherit;
+  font-size: 16px;
+}
+.DropList [class*=__items-box] > *:hover {
+  color: rgba(255, 255, 255, 0.6);
+}/*# sourceMappingURL=DropList.css.map */

@@ -4,3 +4,29 @@
   padding: 0px 15px;
   box-sizing: border-box;
 }
+h1,h2,h3,h4,h5,h6{
+  color: inherit;
+  font-size: inherit;
+}
+h3{
+  font-size: 30px;
+  color: #fff;
+}
+body{
+  background-color: #141414;
+  
+}
+body,html,.App,#root{
+  height: 100%;
+}
+ul{
+  list-style: none;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+}
+main{
+  flex: 1 1 auto;
+}

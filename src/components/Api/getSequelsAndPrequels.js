@@ -1,8 +1,10 @@
+import { API_KEY } from "./constants";
+
 export default async function getSequelsAndPrequels(filmId) {
     const result = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/${filmId}/sequels_and_prequels`, {
         method: 'GET',
         headers: {
-            'X-API-KEY': 'c3f60396-9710-4c86-9e08-6b8b39d6f6dc',
+            'X-API-KEY': API_KEY,
             'Content-Type': 'application/json',
         },
     })

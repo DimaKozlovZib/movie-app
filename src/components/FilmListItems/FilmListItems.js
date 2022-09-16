@@ -1,41 +1,38 @@
-import React, { memo, useContext } from "react";
-import { WindowAboutFilmContext } from "../Context";
+import React, { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import ImageLoad from "../ImageLoad/ImageLoad";
 
 const FilmListItems = memo(({ films, style }) => {
-    const { setOpenFilmId, setWindowIsVisible } = useContext(WindowAboutFilmContext);
-
+    const history = useNavigate();
     return (
         <>
             {
-                films.map(item =>
+                films ? films.map(item =>
                     <ItemFilm
                         item={item}
                         style={style ? style : null}
+                        history={history}
                         key={item.filmId}
-                        setOpenFilmId={setOpenFilmId}
-                        setWindowIsVisible={setWindowIsVisible}
                     />
-                )
+                ) : ''
             }
         </>
 
     )
 })
 
-const ItemFilm = memo(({ item, setOpenFilmId, setWindowIsVisible, style }) => {
+const ItemFilm = memo(({ item, style, history }) => {
 
     return (
         <div className="film" style={style ? style : null} onClick={() => {
-            setOpenFilmId(item.filmId);
-            setWindowIsVisible(true);
+            history('/movie-app/films/' + (item.filmId || item.kinopoiskId));
         }}>
             <div className="poster-box">
                 <ImageLoad url={item.posterUrlPreview} />
-                <div className="film-rating">{item.rating}</div>
+                <div className="film-rating">{item.rating || item.ratingKinopoisk}</div>
             </div>
             <div className="text-contant">
-                <h3>{item.nameRu}</h3>
+                <h3>{item.nameRu || item.nameOriginal}</h3>
                 <h4>
                     {
                         item.genres ? item.genres.map(item => item.genre).join(", ") : ''

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import classes from "./Torch.module.css";
+import "./Torch.css";
 
-function Torch(arg) {
+function Torch({ children, ...props }) {
     const [Gradient, setGradient] = useState("radial-gradient(circle at -10000px -10000px, transparent,#000 20%)");
     const [torchVisible, settorchVisible] = useState(false);
 
@@ -21,15 +21,15 @@ function Torch(arg) {
             onMouseMove={torchMove}
             onTouchMove={torchMove}
             onMouseOut={torchUnvisible}
-            className={classes.torchWrapper}
+            className={'torchWrapper'}
         >
 
-            <div className={"container " + classes.container}>
-                <div className={classes.torchTextContant}>
-                    {arg.textContant === false ? "" : arg.textContant}
+            <div className={"container"}>
+                <div className={'torchTextContant'}>
+                    {children}
                 </div>
             </div>
-            <div style={{ background: Gradient }} className={classes.torch}></div>
+            <div style={{ background: Gradient }} className={'torch'}></div>
         </div>
     )
 }

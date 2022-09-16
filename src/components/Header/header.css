@@ -1,0 +1,116 @@
+.header{
+    padding: 2px 0 6px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    color: #fff;
+    font-size: 26px;
+}
+.header::before{
+    background-color: #1f1f1f;
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+}
+.logo, .navigate__wrapper{
+    position: relative;
+    z-index: 4;
+}
+.header .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.navigate{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.navigate__item{
+    padding: 5px;
+    
+}
+.navigate__item a{
+    color: #fff;
+    font-size: 19px;
+    text-decoration: none;
+    transition: color linear 0.3s;
+}
+.navigate__item a:hover{
+    color: rgba(255, 255, 255, 0.6);
+}
+
+
+.mobile-menu{
+    display: none;
+    width: 28px;
+    height: 21px;
+    position: relative;
+}
+.mobile-menu::after, .mobile-menu::before, .mobile-menu span{
+    content: '';
+    right: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+}
+.mobile-menu::after{
+    bottom: 0;
+}
+.mobile-menu::before{
+    top: 0;
+}
+.mobile-menu span{
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.mobile-menu.active::after{
+    display: none;
+}
+.mobile-menu.active::before{
+    transform: rotate(45deg);
+}
+.mobile-menu.active span{
+    transform: rotate(-45deg);
+}
+.mobile-menu.active span, .mobile-menu.active::before{
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+@media (max-width: 615px) {
+    .mobile-menu{
+        display: block;
+    }
+    .navigate{
+        display: none;
+        position: fixed;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        margin-top: 44px;
+        background: #141414;
+        
+    }
+    .navigate > *{
+            margin-bottom: 10px;
+        }
+    .navigate__wrapper.active .navigate{
+        display: flex;
+    }
+}

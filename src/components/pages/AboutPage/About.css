@@ -1,0 +1,21 @@
+.About__contant {
+  color: #fff;
+  padding: 50px 0px;
+}
+.About__contant * {
+  text-align: center;
+}
+.About__contant h2 {
+  font-size: 40px;
+}
+.About__contant h3 {
+  font-size: 20px;
+  margin-top: 25px;
+}
+.About__contant p {
+  font-size: 16px;
+  margin-top: 20px;
+}
+.About__contant ul {
+  margin-top: 10px;
+}/*# sourceMappingURL=About.css.map */
