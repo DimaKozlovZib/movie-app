@@ -48,7 +48,11 @@ const AboutFilm = memo(({ filmId }) => {
     const getSequelsAndPrequels_Similars = async (filmId) => {
         const SequelsAndPrequels = await getSequelsAndPrequels(filmId);
         const similars = await getSimilars(filmId);
-        setSequelsAndPrequels_Similars([...SequelsAndPrequels, ...similars.items]);
+        const AllSimilars = [...SequelsAndPrequels, ...similars.items];
+        if (AllSimilars.length > 0) {
+            setSequelsAndPrequels_Similars(AllSimilars);
+        }
+
     };
 
     let genres = (DataAboutFilm ? DataAboutFilm.genres.map(item => item.genre).join(", ") : '');
@@ -100,19 +104,22 @@ const AboutFilm = memo(({ filmId }) => {
                         </div>
 
                         <div className="review">
-                            <div className="description-box">
-                                <div className="description-box__title">
-                                    <h3>Описание фильма</h3>
-                                </div>
-                                <p className="film-description">{DataAboutFilm.description}</p>
-                            </div>
-
-                            <div className="SequelsAndPrequels_Similars-wrapper">
-                                <div className="SequelsAndPrequels_Similars__title">
-                                    <h3>Похожие фильмы</h3>
-                                </div>
-                                <FilmsSlider films={SequelsAndPrequels_Similars} />
-                            </div>
+                            {
+                                DataAboutFilm.description ? <div className="description-box">
+                                    <div className="description-box__title">
+                                        <h3>Описание фильма</h3>
+                                    </div>
+                                    <p className="film-description">{DataAboutFilm.description}</p>
+                                </div> : ''
+                            }
+                            {
+                                SequelsAndPrequels_Similars ? <div className="SequelsAndPrequels_Similars-wrapper">
+                                    <div className="SequelsAndPrequels_Similars__title">
+                                        <h3>Похожие фильмы</h3>
+                                    </div>
+                                    <FilmsSlider films={SequelsAndPrequels_Similars} />
+                                </div> : ''
+                            }
                         </div>
                     </>
                 ) : <Loader />}
