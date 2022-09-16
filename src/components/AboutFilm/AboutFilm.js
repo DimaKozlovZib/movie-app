@@ -54,65 +54,70 @@ const AboutFilm = memo(({ filmId }) => {
     let genres = (DataAboutFilm ? DataAboutFilm.genres.map(item => item.genre).join(", ") : '');
 
     return (
-        DataAboutFilm ? <div className={`windowAboutFilm`}>
+        <div className={`windowAboutFilm`}>
             <div className="container">
-
-                <div className="go-out-button-box">
-                    <button className="go-out-button" onClick={() => {
-                        history(-1);
-                    }}>{'< Назад'}</button>
-                </div>
-
-                <div className="content-wrapper">
-                    <div className="windowAboutFilm__poster-box">
-                        <ImageLoad url={DataAboutFilm.posterUrlPreview} />
-                    </div>
-
-                    <div className="content-box">
-                        <div className="filmName">
-                            <h2 className="nameRu">{`${DataAboutFilm.nameRu} (${DataAboutFilm.year})`}</h2>
+                {DataAboutFilm ? (
+                    <>
+                        <div className="go-out-button-box">
+                            <button className="go-out-button" onClick={() => {
+                                history(-1);
+                            }}>{'< Назад'}</button>
                         </div>
 
-                        <div className="genres">
-                            <h3 className="windowAboutFilm__genres">
-                                {genres}
-                            </h3>
+                        <div className="content-wrapper">
+
+                            <div className="windowAboutFilm__poster-box">
+                                <ImageLoad url={DataAboutFilm.posterUrlPreview} />
+                            </div>
+
+                            <div className="content-box">
+                                <div className="filmName">
+                                    <h2 className="nameRu">{`${DataAboutFilm.nameRu} (${DataAboutFilm.year})`}</h2>
+                                </div>
+
+                                <div className="genres">
+                                    <h3 className="windowAboutFilm__genres">
+                                        {genres}
+                                    </h3>
+                                </div>
+
+                                <div className="short-description">
+                                    <p>{DataAboutFilm.shortDescription}</p>
+                                </div>
+
+                                <div className="link-button-box">
+                                    <a href={DataAboutFilm.webUrl} target="_blank" rel="noreferrer" className="button">Смотреть</a>
+                                </div>
+
+                                <div className="information-list">
+                                    {
+                                        InfoList ? InfoList.map(({ itemName, data }) =>
+                                            <ListItem key={itemName} name={itemName} data={data} />) : ''
+                                    }
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div className="short-description">
-                            <p>{DataAboutFilm.shortDescription}</p>
-                        </div>
+                        <div className="review">
+                            <div className="description-box">
+                                <div className="description-box__title">
+                                    <h3>Описание фильма</h3>
+                                </div>
+                                <p className="film-description">{DataAboutFilm.description}</p>
+                            </div>
 
-                        <div className="link-button-box">
-                            <a href={DataAboutFilm.webUrl} target="_blank" rel="noreferrer" className="button">Смотреть</a>
-                            <button className="button">Буду смотреть</button>
+                            <div className="SequelsAndPrequels_Similars-wrapper">
+                                <div className="SequelsAndPrequels_Similars__title">
+                                    <h3>Похожие фильмы</h3>
+                                </div>
+                                <FilmsSlider films={SequelsAndPrequels_Similars} />
+                            </div>
                         </div>
-
-                        <div className="information-list">
-                            {
-                                InfoList ? InfoList.map(({ itemName, data }) =>
-                                    <ListItem key={itemName} name={itemName} data={data} />) : ''
-                            }
-                        </div>
-
-                    </div>
-                </div>
-                <div className="review">
-                    <div className="description-box">
-                        <div className="description-box__title">
-                            <h3>Описание фильма</h3>
-                        </div>
-                        <p className="film-description">{DataAboutFilm.description}</p>
-                    </div>
-                    <div className="SequelsAndPrequels_Similars-wrapper">
-                        <div className="SequelsAndPrequels_Similars__title">
-                            <h3>Похожие фильмы</h3>
-                        </div>
-                        <FilmsSlider films={SequelsAndPrequels_Similars} />
-                    </div>
-                </div>
+                    </>
+                ) : <Loader />}
             </div>
-        </div> : <Loader />)
+        </div>)
 });
 
 
