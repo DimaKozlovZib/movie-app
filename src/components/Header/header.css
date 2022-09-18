@@ -15,12 +15,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 150;
     width: 100%;
 }
-.logo, .navigate__wrapper{
+.logo, .mobile-menu{
     position: relative;
-    z-index: 4;
+    z-index: 154;
 }
 .header .container{
     display: flex;
@@ -52,7 +52,7 @@
     display: none;
     width: 28px;
     height: 21px;
-    position: relative;
+    padding: 5px 0px;
 }
 .mobile-menu::after, .mobile-menu::before, .mobile-menu span{
     content: '';
@@ -91,6 +91,9 @@
 }
 
 @media (max-width: 615px) {
+    .header{
+        padding: 6px 0px 9px;
+    }
     .mobile-menu{
         display: block;
     }
@@ -103,13 +106,13 @@
         width: 100%;
         left: 0;
         top: 0;
-        margin-top: 44px;
+        padding-top: 54px;
         background: #141414;
-        
+        z-index: 50;
     }
     .navigate > *{
-            margin-bottom: 10px;
-        }
+        margin-bottom: 10px;
+    }
     .navigate__wrapper.active .navigate{
         display: flex;
     }

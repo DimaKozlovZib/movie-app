@@ -8,9 +8,11 @@ function Header() {
 
     const openMobileMenu = () => {
         if (MobileMenuActive === 'active') {
-            setMobileMenuActive("")
+            setMobileMenuActive("");
+            document.querySelector('body').style.overflow = 'auto';
         } else {
             setMobileMenuActive("active");
+            document.querySelector('body').style.overflow = 'hidden';
         }
     }
 
